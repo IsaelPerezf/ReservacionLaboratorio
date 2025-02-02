@@ -1,0 +1,43 @@
+﻿@model ReservacionLaboratorio.Models.UsuarioLoginViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+            <h3 class="text-center mb-4">Iniciar Sesión</h3>
+
+            <!-- Mostrar mensajes de error -->
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                </div>
+            }
+
+            <form asp-action="Login" asp-controller="Account" method="post">
+                <div class="form-group mb-3">
+                    <label for="Carnet">Carnet</label>
+                    <input type="text" class="form-control" id="Carnet" name="Carnet" asp-for="Carnet" required />
+                    <span asp-validation-for="Carnet" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="Contraseña">Contraseña</label>
+                    <input type="password" class="form-control" id="Contraseña" name="Contraseña" asp-for="Contraseña" required />
+                    <span asp-validation-for="Contraseña" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
